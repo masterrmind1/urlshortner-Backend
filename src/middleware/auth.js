@@ -6,7 +6,7 @@ const auth = async(req, res, next) => {
     try {
         const userData = await User.userSchema.findOne({ email: req.body.email.toLowerCase() })
         const token = await userData.generateAuthToken()
-        console.log(token)
+
         const decode = jwt.verify(token, 'urlshortnerabcdefghijklmnopqrstuvwxyz')
         const user = await User.userSchema.findOne({ _id: decode._id, 'tokens.token': token })
         if (!user) {

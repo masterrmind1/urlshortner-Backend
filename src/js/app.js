@@ -29,8 +29,6 @@ app.use(getUsersAllUrls)
 app.use(cookieParser())
 const router = new express.Router()
 
-
-
 const createToken = async() => {
     const token = await jwt.sign({ _id: '6389b922bb9c59eaf7352744' }, "urlshortnerabcdefghijklmnopqrstuvwxyz")
 }
