@@ -29,11 +29,27 @@ app.use(getUsersAllUrls)
 app.use(cookieParser())
 const router = new express.Router()
 
+
+if (process.argv[2] === 'dev') {
+    var corsOptions = {
+        origin: process.env.path_dev,
+        optionsSuccessStatus: 200
+    }
+}
+
+if (process.argv[2] === 'prod') {
+    var corsOptions = {
+        origin: process.env.path_prod,
+        optionsSuccessStatus: 200
+    }
+}
+
+console.log(process.argv[2])
 const createToken = async() => {
     const token = await jwt.sign({ _id: '6389b922bb9c59eaf7352744' }, "urlshortnerabcdefghijklmnopqrstuvwxyz")
 }
 createToken();
-
+console.log(process.argv[2])
 
 
 app.listen(3000)

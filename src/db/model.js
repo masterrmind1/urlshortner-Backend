@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
 
-const MONGO_USERNAME = 'Paurnima';
-const MONGO_PASSWORD = 'Paurnima2007$$';
-const MONGO_HOSTNAME = '127.0.0.1';
-const MONGO_PORT = '27017';
-const MONGO_DB = 'urlshortner';
+
 const validator = require('validator')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
@@ -13,16 +9,16 @@ const dotenv = require("dotenv");
 
 require('dotenv').config({ path: 'ENV_FILENAME' });
 
-const url = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DB}?authSource=admin`;
+// const url = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DB}?authSource=admin`;
 
-mongoose.connect(url, { useNewUrlParser: true });
+// mongoose.connect(url, { useNewUrlParser: true });
 
-// mongoose.connect('mongodb://127.0.0.1:27017/UrlShortner', {
-//     useNewUrlParser: true
-// })
-// mongoose.connect(process.env.DATABASE_URL, {
-//     useNewUrlParser: true
-// })
+mongoose.connect('mongodb://127.0.0.1:27017/UrlShortner', {
+        useNewUrlParser: true
+    })
+    // mongoose.connect(process.env.DATABASE_URL, {
+    //     useNewUrlParser: true
+    // })
 
 const User = new mongoose.Schema({
     email: {

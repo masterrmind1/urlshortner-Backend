@@ -14,8 +14,8 @@ const connectionUrl = 'mongodb://127.0.0.1:27017'
 const databaseName = 'UrlShortner'
 require('dotenv').config()
 
-// mongoClient.connect(connectionUrl, { useNewUrlParser: true }, (error, client) => {
-mongoClient.connect(process.env.DATABASE_URL, { useNewUrlParser: true }, (error, client) => {
+mongoClient.connect(connectionUrl, { useNewUrlParser: true }, (error, client) => {
+    // mongoClient.connect(process.env.DATABASE_URL, { useNewUrlParser: true }, (error, client) => {
 
     if (error) {
         return console.log("unble to connect")
