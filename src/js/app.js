@@ -31,20 +31,24 @@ const router = new express.Router()
 
 console.log(apps)
 console.log(apps.env)
-if (process.argv[2] === 'dev') {
-    var corsOptions = {
-        origin: process.env.path_dev,
-        optionsSuccessStatus: 200
-    }
-}
+    // if (process.argv[2] === 'dev') {
+    //     var corsOptions = {
+    //         origin: process.env.path_dev,
+    //         optionsSuccessStatus: 200
+    //     }
+    // }
 
-if (process.argv[2] === 'prod') {
-    var corsOptions = {
-        origin: process.env.path_prod,
-        optionsSuccessStatus: 200
-    }
-}
+// if (process.argv[2] === 'prod') {
+//     var corsOptions = {
+//         origin: process.env.path_prod,
+//         optionsSuccessStatus: 200
+//     }
+// }
 
+var corsOptions = {
+    origin: process.env.path_dev,
+    optionsSuccessStatus: 200
+}
 app.use(cors(corsOptions))
 console.log(process.argv)
 const createToken = async() => {

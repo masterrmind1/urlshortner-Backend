@@ -3,7 +3,7 @@ const router = new express.Router()
 const model = require('../db/model')
 const shortId = require("shortid");
 //let baseUrl = 'http://localhost:3000/'
-let baseUrl = 'http://142.93.220.213'
+let baseUrl = 'http://142.93.220.213:3000'
 let urlId = '6370af1434dc5ce79fce77d7'
 const auth = require('../middleware/auth')
 
