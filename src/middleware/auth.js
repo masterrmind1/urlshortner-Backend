@@ -2,9 +2,23 @@ const jwt = require('jsonwebtoken')
 const User = require('../db/model')
 
 const auth = async(req, res, next) => {
-
+    let userData;
     try {
-        const userData = await User.userSchema.findOne({ email: req.body.email.toLowerCase() })
+        if (req.body.id) {
+            console.log(req.body.id)
+            userData = await User.userSchema.findById({ _id: req.body.id })
+
+        } else {
+            console.log(req.body.email)
+
+            userData = await User.userSchema.findOne({ email: req.body.email.toLowerCase() })
+            console.log(userData)
+            console.log(typeof(userData))
+
+        }
+
+
+
         const token = await userData.generateAuthToken()
 
         const decode = jwt.verify(token, 'urlshortnerabcdefghijklmnopqrstuvwxyz')

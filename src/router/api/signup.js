@@ -1,6 +1,6 @@
 const express = require('express')
 const router = new express.Router()
-const User = require('../db/model')
+const User = require('../../db/model')
 const bcrypt = require('bcryptjs')
 router.get('/signup', async(req, res) => {
     res.send('signup')
