@@ -2,7 +2,6 @@ const express = require('express')
 const { MongoClient, ObjectId, Db } = require('mongodb')
 const app = express()
 const cors = require('cors')
-const apps = require('./ecosystem.config')
 require('../db/mongodb')
 const User = require('../db/model')
 const id = new ObjectId()
@@ -29,26 +28,25 @@ app.use(getUsersAllUrls)
 app.use(cookieParser())
 const router = new express.Router()
 
-console.log(apps)
-console.log(apps.env)
-    // if (process.argv[2] === 'dev') {
-    //     var corsOptions = {
-    //         origin: process.env.path_dev,
-    //         optionsSuccessStatus: 200
-    //     }
-    // }
 
-// if (process.argv[2] === 'prod') {
-//     var corsOptions = {
-//         origin: process.env.path_prod,
-//         optionsSuccessStatus: 200
-//     }
-// }
+if (process.argv[2] === 'dev') {
+    var corsOptions = {
+        origin: process.env.path_dev,
+        optionsSuccessStatus: 200
+    }
+}
 
+if (process.argv[2] === 'prod') {
+    var corsOptions = {
+        origin: process.env.path_prod,
+        optionsSuccessStatus: 200
+    }
+}
 var corsOptions = {
-    origin: process.env.path_dev,
+    origin: process.env.path_prod,
     optionsSuccessStatus: 200
 }
+
 app.use(cors(corsOptions))
 console.log(process.argv)
 const createToken = async() => {
