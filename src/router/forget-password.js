@@ -13,7 +13,8 @@ router.post('/forget-password', async(req, res) => {
     try {
         const getUser = await User.userSchema.findOne({ email: req.body.email.toLowerCase() })
         if (getUser) {
-            const link = 'http://localhost:4200/reset-password/' + getUser._id
+            //  const link = 'http://localhost:4200/reset-password/' + getUser._id
+            const link = 'http://142.93.220.213/reset-password/' + getUser._id
             var transporter = nodemailer.createTransport({
                 service: 'gmail',
                 auth: {

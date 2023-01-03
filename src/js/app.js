@@ -2,7 +2,7 @@ const express = require('express')
 const { MongoClient, ObjectId, Db } = require('mongodb')
 const app = express()
 const cors = require('cors')
-app.use(cors())
+const apps = require('./ecosystem.config')
 require('../db/mongodb')
 const User = require('../db/model')
 const id = new ObjectId()
@@ -29,7 +29,8 @@ app.use(getUsersAllUrls)
 app.use(cookieParser())
 const router = new express.Router()
 
-
+console.log(apps)
+console.log(apps.env)
 if (process.argv[2] === 'dev') {
     var corsOptions = {
         origin: process.env.path_dev,
@@ -44,7 +45,8 @@ if (process.argv[2] === 'prod') {
     }
 }
 
-console.log(process.argv[2])
+app.use(cors(corsOptions))
+console.log(process.argv)
 const createToken = async() => {
     const token = await jwt.sign({ _id: '6389b922bb9c59eaf7352744' }, "urlshortnerabcdefghijklmnopqrstuvwxyz")
 }
