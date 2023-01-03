@@ -6,7 +6,7 @@ module.exports = {
         env: {
             "PORT": 3000,
             "NODE_ENV": "development",
-            "url": "http://localhost:3000"
+            "url": "http://142.93.220.213"
         },
         env_production: {
             "PORT": 3000,
