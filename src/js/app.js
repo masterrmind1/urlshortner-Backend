@@ -2,6 +2,7 @@ const express = require('express')
 const { MongoClient, ObjectId, Db } = require('mongodb')
 const app = express()
 const cors = require('cors')
+app.use(cors())
 require('../db/mongodb')
 const User = require('../db/model')
 const id = new ObjectId()
@@ -28,27 +29,20 @@ app.use(getUsersAllUrls)
 app.use(cookieParser())
 const router = new express.Router()
 
-
-if (process.argv[2] === 'dev') {
-    var corsOptions = {
-        origin: process.env.path_dev,
-        optionsSuccessStatus: 200
-    }
-}
-
-if (process.argv[2] === 'prod') {
-    var corsOptions = {
-        origin: process.env.path_prod,
-        optionsSuccessStatus: 200
-    }
-}
 var corsOptions = {
-    origin: process.env.path_prod,
-    optionsSuccessStatus: 200
+    origin: process.env.path,
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
 
-app.use(cors(corsOptions))
-console.log(process.argv)
+
+// if (process.env.NODE_ENV === 'development') {
+//     // ...
+//   }
+
+//   if (process.env.NODE_ENV === 'production') {
+//     // ...
+//   }
+
 const createToken = async() => {
     const token = await jwt.sign({ _id: '6389b922bb9c59eaf7352744' }, "urlshortnerabcdefghijklmnopqrstuvwxyz")
 }
