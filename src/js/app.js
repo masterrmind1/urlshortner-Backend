@@ -6,34 +6,18 @@ app.use(cors())
 require('../db/mongodb')
 const User = require('../db/model')
 const id = new ObjectId()
-const cookieParser = require('cookie-parser')
 const jwt = require('jsonwebtoken')
-
-const loginRoute = require('../router/login')
-const logOutRoute = require('../router/logout')
-const resetPasswordRoute = require('../router/reset-password')
-const forgetPasswordRoute = require('../router/forget-password')
-const generateUrlRoute = require('../router/generateURL')
-const getUserDataRoute = require('../router/api/getUserData')
-const getUsersAllUrls = require('../router/getAlluserUrls')
-const getUserFromId = require('../router/getUserFromId')
-const auth = require('../middleware/auth')
-app.use(express.json());
-
-app.use(loginRoute)
-app.use(resetPasswordRoute)
-app.use(forgetPasswordRoute)
-app.use(generateUrlRoute)
-app.use(logOutRoute)
-app.use(getUserDataRoute)
-app.use(getUsersAllUrls)
-app.use(getUserFromId)
+const router = require('../router')
+const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
+app.use(bodyParser.json());
+app.use(router);
 app.use(cookieParser())
-const router = new express.Router()
+
 
 var corsOptions = {
     origin: process.env.path,
-    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+    optionsSuccessStatus: 200
 }
 
 

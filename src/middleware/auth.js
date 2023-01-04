@@ -5,22 +5,11 @@ const auth = async(req, res, next) => {
     let userData;
     try {
         if (req.body.id) {
-            console.log(req.body.id)
             userData = await User.userSchema.findById({ _id: req.body.id })
-
-        } else {
-            console.log(req.body.email)
-
+        } else if (req.body.email) {
             userData = await User.userSchema.findOne({ email: req.body.email.toLowerCase() })
-            console.log(userData)
-            console.log(typeof(userData))
-
         }
-
-
-
         const token = await userData.generateAuthToken()
-
         const decode = jwt.verify(token, 'urlshortnerabcdefghijklmnopqrstuvwxyz')
         const user = await User.userSchema.findOne({ _id: decode._id, 'tokens.token': token })
         if (!user) {

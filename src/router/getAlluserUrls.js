@@ -3,6 +3,7 @@ const router = new express.Router()
 const model = require('../db/model')
 const auth = require('../middleware/auth')
 
+//input-emailid
 router.post('/home/allUrls', auth, async(req, res) => {
     try {
         const urlData = await model.urlSchema.find({ email: req.body.email.toLowerCase() })

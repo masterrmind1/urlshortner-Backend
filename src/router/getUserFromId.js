@@ -1,9 +1,9 @@
 const express = require('express')
 const router = new express.Router()
-const User = require('../../src/db/model')
+const User = require('../db/model')
+const auth = require('../middleware/auth')
 
-const auth = require('../../src/middleware/auth')
-
+//input- Id
 router.post('/getUserFromId', auth, async(req, res) => {
     try {
         const userData = await User.userSchema.findById({ _id: req.body.id })

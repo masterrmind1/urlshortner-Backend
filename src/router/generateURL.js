@@ -8,9 +8,6 @@ let urlId = '6370af1434dc5ce79fce77d7'
 const auth = require('../middleware/auth')
 
 
-router.get('/home/generte_URL', auth, async(req, res) => {
-    res.send("urlData")
-})
 
 //input should be longUrl and email
 router.post('/home/generate_URL', auth, (req, res) => {

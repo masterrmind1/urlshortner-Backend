@@ -17,6 +17,7 @@ router.post('/logout', auth, async(req, res) => {
 
 })
 
+//input- email
 router.patch('/logoutAll/:id', async(req, res) => {
     try {
         const user = await User.userSchema.findByIdAndUpdate(req.params.id, { tokens: [] }, { new: true, runValidators: true })

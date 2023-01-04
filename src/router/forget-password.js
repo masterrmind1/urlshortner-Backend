@@ -2,18 +2,13 @@ const express = require('express')
 const router = new express.Router()
 const User = require('../db/model')
 var nodemailer = require('nodemailer');
-const bcrypt = require('bcryptjs')
 
-router.get('/forget-password/', async(req, res) => {
-    res.send('forget-password')
-})
 
-//input should be "email"
+//input- "email"
 router.post('/forget-password', async(req, res) => {
     try {
         const getUser = await User.userSchema.findOne({ email: req.body.email.toLowerCase() })
         if (getUser) {
-            //  const link = 'http://localhost:4200/reset-password/' + getUser._id
             const link = 'http://142.93.220.213/#/reset-password/' + getUser._id
             var transporter = nodemailer.createTransport({
                 service: 'gmail',
@@ -28,7 +23,6 @@ router.post('/forget-password', async(req, res) => {
                 subject: 'Reset Your Password',
                 text: 'Reset your password using link ' + link
             };
-
             transporter.sendMail(mailOptions, (error, info) => {
                 if (error) {
                     res.send(error)

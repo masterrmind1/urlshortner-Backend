@@ -2,13 +2,9 @@ const express = require('express')
 const router = new express.Router()
 const User = require('../db/model')
 const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
-const auth = require('../middleware/auth')
-router.get('/login', auth, async(req, res) => {
-    const userData = await User.userSchema.findOne({ email: 'rajput2007@gmail.com' })
-    res.send({ login: 'login' })
-})
-router.get('/abc', auth, async(req, res) => { res.send('abc') })
+    // const jwt = require('jsonwebtoken')
+
+//inp- email, password
 router.post('/login', async(req, res) => {
     try {
         const userData = await User.userSchema.findOne({ email: req.body.email.toLowerCase() })
@@ -31,7 +27,6 @@ router.post('/login', async(req, res) => {
         } else {
             res.send({ result: 'This Email is not registered! Please signup first', status: 400 })
         }
-
     } catch (er) {
         res.status(500).send(er)
     }
