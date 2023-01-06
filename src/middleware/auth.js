@@ -1,17 +1,17 @@
 const jwt = require('jsonwebtoken')
-const User = require('../db/model')
+const userSchema = require('../db/userDatabase')
 
 const auth = async(req, res, next) => {
     let userData;
     try {
         if (req.body.id) {
-            userData = await User.userSchema.findById({ _id: req.body.id })
+            userData = await userSchema.findById({ _id: req.body.id })
         } else if (req.body.email) {
-            userData = await User.userSchema.findOne({ email: req.body.email.toLowerCase() })
+            userData = await userSchema.findOne({ email: req.body.email.toLowerCase() })
         }
         const token = await userData.generateAuthToken()
         const decode = jwt.verify(token, 'urlshortnerabcdefghijklmnopqrstuvwxyz')
-        const user = await User.userSchema.findOne({ _id: decode._id, 'tokens.token': token })
+        const user = await userSchema.findOne({ _id: decode._id, 'tokens.token': token })
         if (!user) {
             throw new Error()
         }

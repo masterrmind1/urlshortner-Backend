@@ -1,24 +1,11 @@
 const mongoose = require('mongoose');
-
-
 const validator = require('validator')
-const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-const port = process.env.PORT || 3000
-const dotenv = require("dotenv");
-
 require('dotenv').config({ path: 'ENV_FILENAME' });
 
-// const url = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DB}?authSource=admin`;
-
-// mongoose.connect(url, { useNewUrlParser: true });
-
 mongoose.connect('mongodb://127.0.0.1:27017/UrlShortner', {
-        useNewUrlParser: true
-    })
-    // mongoose.connect(process.env.DATABASE_URL, {
-    //     useNewUrlParser: true
-    // })
+    useNewUrlParser: true
+})
 
 const User = new mongoose.Schema({
     email: {
@@ -71,46 +58,14 @@ const User = new mongoose.Schema({
 // })
 
 User.methods.generateAuthToken = async function() {
-    console.log('ok')
     try {
         let secretToken = jwt.sign({ _id: this._id.toString() }, 'urlshortnerabcdefghijklmnopqrstuvwxyz')
-
         this.tokens = this.tokens.concat({ token: secretToken })
         await this.save()
         return secretToken
     } catch (e) {
-
+        console.log(e)
     }
 }
-
-
-const urlSchema = mongoose.model('Generated_URLs', {
-    email: {
-        type: String,
-        require: true,
-        validate(value) {
-            if (!validator.isEmail(value)) {
-                throw new Error('Please Enter valid Email')
-            }
-        }
-    },
-    longUrl: {
-        type: String,
-        require: true,
-        validate(value) {
-            if (!validator.isURL(value)) {
-                throw new Error('Please Enter valid URL')
-            }
-        }
-    },
-    shortUrl: {
-        type: String,
-        require: true
-    }
-})
-
-
 const userSchema = mongoose.model('User', User)
-    //const user = mongoose.model('User', userSchema)
-
-module.exports = { userSchema, urlSchema }
+module.exports = userSchema
