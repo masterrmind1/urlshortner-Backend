@@ -3,9 +3,10 @@ const getUsersAllUrlsController = async(req, res) => {
     try {
         if (req.body) {
             const urlData = await urlSchema.find({ email: req.body.email.toLowerCase() })
-            console.log(urlData)
             if (urlData) {
                 res.send(urlData).status(200)
+            } else {
+                res.send("you dont have shortened any url yet!").status(400)
             }
         }
     } catch (e) {

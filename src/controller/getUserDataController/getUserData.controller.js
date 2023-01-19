@@ -5,12 +5,12 @@ const getUserDataController = async(req, res) => {
 
             const userData = await userSchema.findOne({ email: req.body.email.toLowerCase() })
             if (userData) {
-                res.send(userData)
+                res.send(userData).status(200)
             } else {
-                res.send("no user found")
+                res.send("no user found").status(404)
             }
         } else {
-            res.send("please send user email")
+            res.send("user email is required").status(422)
         }
     } catch (e) {
         res.status(500).send(e)

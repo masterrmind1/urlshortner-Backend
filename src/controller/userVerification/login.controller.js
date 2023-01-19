@@ -16,9 +16,9 @@ const loginController = async(req, res) => {
                     //     secure: true
                     // });
                 if (isMatch) {
-                    res.send({ result: 'login successfully', status: 200 }).status(200)
+                    res.send({ result: 'login successfull', status: 200 }).status(200)
                 } else {
-                    res.send({ result: "Password is incorrect", status: 400 }).status(400)
+                    res.send({ result: "Password is incorrect", status: 422 }).status(422)
                 }
             } else {
                 res.send({ result: 'This Email is not registered! Please signup first', status: 400 })

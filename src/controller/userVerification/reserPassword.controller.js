@@ -14,7 +14,7 @@ const resetPasswordControllerWithEmail = async(req, res) => {
                 const user = await userSchema.findByIdAndUpdate(req.params.id, { email: getUser.email, password: await bcrypt.hash(req.body.newPassword, 6) }, { new: true, runValidators: true })
                 res.send({ result: "Password updated successfully", status: 200 })
             } else {
-                res.send()
+                res.send({ result: "Please enter correct current password", status: 401 })
             }
         } else {
             res.send({ result: 'no user exist with this id', status: 409 })

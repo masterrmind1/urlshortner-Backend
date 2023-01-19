@@ -8,7 +8,7 @@ const generateUrlRoute = require('./generate_url/generateURL')
 const getUserDataRoute = require('./getUserData/getUserData')
 const getUsersAllUrls = require('./generate_url/getAlluserUrls')
 const getUserFromId = require('./getUserData/getUserFromId')
-
+const getExpiredEmails = require('../router/getUserData/getExpireEmails')
 router.use(signupRoute);
 router.use(loginRoute)
 router.use(resetPasswordRoute)
@@ -18,5 +18,5 @@ router.use(logOutRoute)
 router.use(getUserDataRoute)
 router.use(getUsersAllUrls)
 router.use(getUserFromId)
-
+router.use(getExpiredEmails)
 module.exports = router;

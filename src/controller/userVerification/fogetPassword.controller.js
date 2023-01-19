@@ -3,8 +3,8 @@ const resetPasswordSchema = require('../../db/reset-passwordDb')
 var nodemailer = require('nodemailer');
 const shortId = require("shortid");
 urlCode = shortId.generate();
-//let baseUrl = 'http://localhost:4200/#/'
-let baseUrl = 'http://142.93.220.213:3000/'
+let baseUrl = 'http://localhost:4200/#/'
+    //let baseUrl = 'http://142.93.220.213:3000/'
 let emailId;
 
 //input Email
@@ -39,21 +39,17 @@ const forgetPasswordController = async(req, res) => {
                 };
                 transporter.sendMail(mailOptions, (error, info) => {
                     if (error) {
-                        res.send(error)
+                        res.send({ result: error, status: 400 })
                     } else {
-                        res.send({ result: "Please check email for a link to reset password", status: 200 })
+                        res.send({ result: "Please check email for a link to reset password", status: 201 })
                     }
                 });
 
-                setTimeout(async() => {
-                    await resetPasswordSchema.findOneAndDelete({ email: req.body.email.toLowerCase() })
-                    console.log(9090)
-                }, 3600000);
             } else {
                 res.send({ result: 'You do not have account, please signup first', status: 403 })
             }
         } else {
-            res.send({ result: 'Please enter Valid EmailId', status: 403 })
+            res.send({ result: 'Please enter Valid EmailId', status: 422 })
         }
     } catch (er) {
         console.log(er)
