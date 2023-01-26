@@ -3,8 +3,8 @@ const resetPasswordSchema = require('../../db/reset-passwordDb')
 var nodemailer = require('nodemailer');
 const shortId = require("shortid");
 urlCode = shortId.generate();
-let baseUrl = 'http://localhost:4200/#/'
-    //let baseUrl = 'http://142.93.220.213:3000/'
+//let baseUrl = 'http://localhost:4200/#/'
+let baseUrl = 'http://142.93.220.213:3000/'
 let emailId;
 
 //input Email
@@ -13,7 +13,6 @@ const forgetPasswordController = async(req, res) => {
         if (req.body) {
             const getUser = await userSchema.findOne({ email: req.body.email.toLowerCase() })
             emailId = req.body.email.toLowerCase()
-            console.log('llll')
             if (getUser) {
                 urlCode = shortId.generate();
                 const urlData = new resetPasswordSchema({
@@ -42,6 +41,8 @@ const forgetPasswordController = async(req, res) => {
                         res.send({ result: error, status: 400 })
                     } else {
                         res.send({ result: "Please check email for a link to reset password", status: 201 })
+                        setTimeout(removeDataFromDb(urlData._id), 10000)
+
                     }
                 });
 
@@ -55,6 +56,12 @@ const forgetPasswordController = async(req, res) => {
         console.log(er)
         res.status(500).send(er)
     }
+}
+
+removeDataFromDb = async function(id) {
+    const result = await resetPasswordSchema.findByIdAndDelete({ _id: id })
+    console.log('pp')
+    console.log('op', result)
 }
 
 module.exports = forgetPasswordController

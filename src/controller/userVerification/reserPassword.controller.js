@@ -28,7 +28,6 @@ const resetPasswordControllerWithUrlId = async(req, res) => {
     try {
         if (req.params.urlId) {
             const getResetPsswordData = await resetPasswordSchema.findOne({ urlId: req.params.urlId })
-            console.log(req.params)
             if (getResetPsswordData) {
                 const getUser = await userSchema.findOne({ email: getResetPsswordData.email })
                 if (getUser) {

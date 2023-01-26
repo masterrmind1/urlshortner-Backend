@@ -1,6 +1,4 @@
 const userSchema = require('../../db/userDatabase')
-
-
 const getUserFromIdController = async(req, res) => {
     try {
         if (req.body) {

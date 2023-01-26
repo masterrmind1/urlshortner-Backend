@@ -32,9 +32,7 @@
  }
 
  const swaggerSpec = swaggerdocs(options)
- app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec), (req, res) => {
-     console.log('swag')
- })
+ app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec), (req, res) => {})
 
  function swaggerDocs(app, port) {
      app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))

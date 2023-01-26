@@ -22,6 +22,6 @@ const forgetPasswordController = require('../../controller/userVerification/foge
  * @returns {ForgetPasswordInput.model}  default - Unexpected error
  * @security JWT
  */
-router.post('/forget-password', auth, forgetPasswordController)
+router.post('/forget-password', forgetPasswordController)
 
 module.exports = router

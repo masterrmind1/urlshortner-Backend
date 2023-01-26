@@ -1,8 +1,9 @@
 const urlSchema = require('../../db/urlDatabase')
 const shortId = require("shortid");
-let baseUrl = 'http://localhost:3000/'
-    //let baseUrl = 'http://142.93.220.213:3000/'
+//let baseUrl = 'http://localhost:3000/'
+let baseUrl = 'http://142.93.220.213:3000/'
 let shortUrl;
+let longUrl;
 const generateUrlController = async(req, res) => {
     try {
         if (req.body) {
@@ -15,13 +16,14 @@ const generateUrlController = async(req, res) => {
                         return res.send({ result: "you already have shortened this URL to \n \n " + getUrl.shortUrl, status: 204 })
                     } else {
                         urlCode = shortId.generate();
+                        longUrl = req.body.longUrl;
                         const urlData = new urlSchema({
                             email: req.body.email.toLowerCase(),
                             longUrl: req.body.longUrl,
                             shortUrl: baseUrl + 'p/' + urlCode
                         })
                         urlData.save()
-                        return res.send({ result: baseUrl + 'p/' + urlCode, status: 200 })
+                        return res.send({ result: baseUrl + 'p/' + urlCode, longUrl: longUrl, status: 200 })
                     }
                 })
             }

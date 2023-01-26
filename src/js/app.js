@@ -13,13 +13,73 @@ app.use(bodyParser.json());
 app.use(router);
 app.use(cookieParser())
 
-const redis = require('redis');
-const client = redis.createClient();
+const Redis = require('redis');
+Redis.debug_mode = true;
+
+// const client = Redis.createClient({
+//     socket: {
+//         host: '127.0.0.1',
+//         port: 3000,
+//     }
+// });
+// const getClient = async() => {
 
 
-client.on('connect', function() {
-    console.log('Connect to redis');
-});
+//     client.on('error', (err) => {
+//         console.error(err);
+//     });
+//     client.on('connect', () => {
+//         console.log('Redis connected');
+//         client.set('abc', 'def')
+
+//     });
+
+//     client.on('reconnecting', () => {
+//         console.log('Redis reconnecting');
+//     });
+//     client.on('ready', () => {
+//         console.log('Redis ready!');
+//     });
+//     await client.connect();
+
+//     return client;
+// };
+//getClient()
+
+
+
+// module.exports = {
+//     getClient,
+// };
+
+
+
+
+// const client = redis.createClient({
+//     socket: {
+//         host: '127.0.0.1',
+//         port: '3000'
+//     },
+//     legacyMode: true
+
+// });
+
+// client.on('error', err => {
+//     console.log('Errorrrrrrrrr' + err);
+// });
+// client.connect()
+
+// client.set('foo', 'bar', (err, reply) => {
+//     if (err) throw err;
+//     console.log(reply);
+
+//     client.get('foo', (err, reply) => {
+//         if (err) throw err;
+//         console.log(reply);
+//     });
+// });
+
+
 
 var corsOptions = {
     origin: process.env.path,

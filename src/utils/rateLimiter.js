@@ -14,7 +14,6 @@ try {
             response.status(options.statusCode).send(options.message),
         onLimitReached: async(request, response, options) => {
             const userUrls = await urlSchema.find({ email: (request).body.email })
-            console.log(userUrls.length)
             if (userUrls.length >= 5) {
                 const reachedLimit = new reachedLimitEmails({
                     email: (request).body.email.toLowerCase()
